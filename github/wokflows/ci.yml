@@ -3,18 +3,26 @@ name: React CI
 on:
   push:
     branches:
-      - main
+      - master
 
   pull_request:
     branches:
-      - main
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: react-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
+    name: Build React App
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -23,8 +31,19 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Build React Application
+      - name: Run lint
+        run: npm run lint --if-present
+
+      - name: Build React application
         run: npm run build
+
+      - name: Upload build
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build
+          path: dist/
+          retention-days: 7
