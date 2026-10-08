@@ -46,4 +46,4 @@ jobs:
         with:
           name: react-build
           path: dist/
-          retention-days: 
+          retention-days:
