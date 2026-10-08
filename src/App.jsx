@@ -48,7 +48,7 @@ function App() {
       <header className="header">
         <div>
           <p className="eyebrow">DEVOPS / CI</p>
-          <h1>CI Pipeline helpline</h1>
+          <h1>CI Pipeline completed</h1>
           <p className="subtitle">
             Demo React application for Continuous Integration testing.
           </p>

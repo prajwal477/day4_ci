@@ -1,50 +1,204 @@
-name: React CI
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-on:
-  push:
-    branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
-      - master
-  workflow_dispatch:
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
 
-permissions:
-  contents: read
+.app {
+  min-height: 100vh;
+}
 
-concurrency:
-  group: react-ci-${{ github.ref }}
-  cancel-in-progress: true
+.navbar {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8%;
+  border-bottom: 1px solid #334155;
+  background: #111827;
+}
 
-jobs:
-  build:
-    name: Build & Test React App
-    runs-on: ubuntu-latest
+.navbar h2 {
+  font-size: 22px;
+}
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+.status {
+  color: #22c55e;
+  font-size: 14px;
+  font-weight: bold;
+}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
+.container {
+  width: 85%;
+  max-width: 1100px;
+  margin: auto;
+}
 
-      - name: Install dependencies
-        run: npm ci
+.hero {
+  text-align: center;
+  padding: 90px 20px 70px;
+}
 
-      - name: Lint check (optional)
-        run: npm run lint --if-present
+.tag {
+  color: #38bdf8;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
 
-      - name: Run build
-        run: npm run build
+.hero h1 {
+  font-size: 55px;
+  line-height: 1.1;
+  margin-bottom: 25px;
+}
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-output
-          path: dist/
-          retention-days: 7
+.hero h1 span {
+  color: #38bdf8;
+}
+
+.description {
+  max-width: 650px;
+  margin: auto;
+  color: #94a3b8;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+button,
+.github-btn {
+  border: none;
+  padding: 13px 22px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.github-btn {
+  background: #334155;
+  color: white;
+}
+
+button:hover,
+.github-btn:hover {
+  opacity: 0.85;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0ea5e9;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-weight: bold;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #94a3b8;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.pipeline {
+  margin: 50px 0;
+  padding: 30px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.pipeline h2 {
+  margin-bottom: 25px;
+}
+
+.pipeline-flow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pipeline-flow span {
+  background: #334155;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.pipeline-flow b {
+  color: #38bdf8;
+}
+
+.pipeline-flow .success {
+  background: #166534;
+  color: #bbf7d0;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #64748b;
+  border-top: 1px solid #334155;
+}
+
+@media (max-width: 800px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 500px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+}
